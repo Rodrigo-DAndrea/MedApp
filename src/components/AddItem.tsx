@@ -8,29 +8,37 @@ import {
   Alert,
 } from 'react-native';
 export interface IItem {
-  item: string;
-  quantity: string;
+  name: string;
+  surname: string;
+  email: String;
+  id: string;
 }
 interface Props {
-  setShoppingList: React.Dispatch<React.SetStateAction<IItem[]>>;
-  shoppingList: IItem[];
+  setClientList: React.Dispatch<React.SetStateAction<IItem[]>>;
+  clientList: IItem[];
 }
-const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
-  const [item, setItem] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const addItem = () => {
-    if (!item) {
-      Alert.alert('No Item!', 'You need to enter an item');
+const AddClient: React.FC<Props> = ({clientList, setClientList}) => {
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
+  const addClient = () => {
+    if (!name) {
+      Alert.alert('No name!', 'You need to enter an name');
     } else {
-      setShoppingList([
-        ...shoppingList,
+      setClientList([
+        ...clientList,
         {
-          item,
-          quantity: quantity || '1',
+          name,
+          surname,
+          email,
+          id: id || '1',
         },
       ]);
-      setItem('');
-      setQuantity('');
+      setName('');
+      setSurname('');
+      setEmail('');
+      setId('');
     }
   };
   return (
@@ -40,19 +48,31 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
         <TextInput
           style={styles.input}
           placeholder="Name"
-          value={item}
-          onChangeText={text => setItem(text)}
+          value={name}
+          onChangeText={text => setName(text)}
         />
         <TextInput
           style={styles.input}
-          placeholder="Enter quantity"
+          placeholder="Surname"
+          value={surname}
+          onChangeText={text => setSurname(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter ID"
           keyboardType="numeric"
-          value={quantity}
+          value={id}
           onChangeText={q => {
-            setQuantity(q);
+            setId(q);
           }}
         />
-        <TouchableOpacity style={styles.addItemButton} onPress={addItem}>
+        <TouchableOpacity style={styles.addClientButton} onPress={addClient}>
           <Text style={styles.buttonText}>Add Client</Text>
         </TouchableOpacity>
       </View>
@@ -74,12 +94,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
   },
-  addItemButton: {
-    backgroundColor: '#eb8634',
+  addClientButton: {
+    backgroundColor: '#000FFF',
     paddingVertical: 20,
     borderRadius: 5,
     alignItems: 'center',
   },
   buttonText: {color: '#fff', fontWeight: '500'},
 });
-export default AddItem;
+export default AddClient;

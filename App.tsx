@@ -4,20 +4,20 @@ import Header from './src/components/Header';
 import AddItem, {IItem} from './src/components/AddItem';
 import Item from './src/components/Item';
 const App = () => {
-  const [shoppingList, setShoppingList] = useState<IItem[]>([]);
+  const [clientList, setClientList] = useState<IItem[]>([]);
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Medical App" />
       <View style={styles.contentWrapper}>
         <AddItem
-          setShoppingList={setShoppingList}
-          shoppingList={shoppingList}
+          setClientList={setClientList}
+          clientList={clientList}
         />
         <FlatList
-          data={shoppingList}
-          keyExtractor={(item, index) => `${item.item}-${index}`}
+          data={clientList}
+          keyExtractor={(name, index) => `${name.name}-${index}`}
           renderItem={({item}) => (
-            <Item item={item.item} quantity={item.quantity} />
+            <Item name={item.name} surname={item.surname} email={item.email} id={item.id} />
           )}
         />
       </View>
