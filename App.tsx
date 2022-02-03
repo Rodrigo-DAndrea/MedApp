@@ -1,36 +1,21 @@
-import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, View, FlatList} from 'react-native';
-import Header from './src/components/Header';
-import AddItem, {IItem} from './src/components/AddItem';
-import Item from './src/components/Item';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, FlatList, TextInput, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Text} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RouteComponent from './src/Routes';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+
 const App = () => {
-  const [clientList, setClientList] = useState<IItem[]>([]);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Medical App" />
-      <View style={styles.contentWrapper}>
-        <AddItem
-          setClientList={setClientList}
-          clientList={clientList}
-        />
-        <FlatList
-          data={clientList}
-          keyExtractor={(name, index) => `${name.name}-${index}`}
-          renderItem={({item}) => (
-            <Item name={item.name} surname={item.surname} email={item.email} id={item.id} />
-          )}
-        />
-      </View>
-    </SafeAreaView>
-  );
+    <SafeAreaProvider>
+      <RouteComponent />
+    </SafeAreaProvider>
+  )
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e8e7e3',
-  },
-  contentWrapper: {
-    padding: 20,
-  },
-});
+
+
 export default App;
