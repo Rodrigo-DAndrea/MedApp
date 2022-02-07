@@ -1,19 +1,23 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, View, FlatList, TextInput, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Text} from 'react-native';
-import Header from '../Header';
-import AddItem, {IItem} from '../AddItem';
-import Item from '../Item';
+import {View, Pressable, Text} from 'react-native';
+import Header from '../../Shared/Header';
+import EditItem from './EditItem';
+import { IItem } from '../../../helpers/types'
+import Item from '../../Shared/Item';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParameters } from '../help/types';
+import { RootStackParameters } from '../../../helpers/types';
+import styles from './Styles';
 
-type Props = NativeStackScreenProps<RootStackParameters, 'AddClient'>
+type Props = NativeStackScreenProps<RootStackParameters, 'Edit'>
 
-const EditScreen = ({navigation}: Props) => {
+const EditScreen = ({route, navigation}: Props) => {
+
+  const { selectedClient } = route.params;
 
   const [clientList, setClientList] = useState<IItem[]>([]);
 
@@ -31,14 +35,15 @@ const EditScreen = ({navigation}: Props) => {
       <Header title="Medical App" />
       <FlipperAsyncStorage />
       <View style={styles.contentWrapper}>
-        <AddItem
+        <EditItem 
           setClientList={setClientList}
           clientList={clientList}
+          client={selectedClient}
         />
       </View>
       <View>
         <Pressable style={styles.button} onPress={() =>
-            navigation.navigate('Data')
+            navigation.navigate('ShowList')
           }>
           <Text style={styles.buttonText}>Complete Data</Text>
         </Pressable>
@@ -46,32 +51,6 @@ const EditScreen = ({navigation}: Props) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e8e7e3',
-  },
-  contentWrapper: {
-    padding: 20,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  button: {
-    backgroundColor: 'indigo',
-    padding: 15,
-    margin: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff', 
-    fontWeight: '500',
-  }
-});
 
 
 export default EditScreen;

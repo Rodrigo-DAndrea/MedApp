@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, View, FlatList, TextInput, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Text} from 'react-native';
+import {View} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AddScreen from './components/Screens/AddClientScreen';
-import DataScreen from './components/Screens/DataScreen';
-import LoginScreen from './components/Screens/LoginScreen';
-import HomeScreen from './components/Screens/HomeScreen';
-import RegisterScreen from './components/Screens/RegisterScreen';
+import AddScreen from './components/Routes/AddClient/Index';
+import EditScreen from './components/Routes/EditClient/Index';
+import DataScreen from './components/Routes/ShowList/Index';
+import LoginScreen from './components/Routes/Login/Index';
+import HomeScreen from './components/Routes/Home/Index';
+import RegisterScreen from './components/Routes/Register/Index';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,8 +33,12 @@ const RouteComponent = () => {
             component={AddScreen}
             options={{ title: 'Welcome' }}
           />
+          <Stack.Screen
+            name="Edit"
+            component={EditScreen}
+          />
           <Stack.Screen 
-            name="Data" 
+            name="ShowList" 
             component={DataScreen}
           />
         </Stack.Navigator>

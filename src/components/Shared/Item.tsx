@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet, Pressable, Alert} from 'react-native';
-import {IItem} from './AddItem';
+import {IItem} from '../../helpers/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props extends IItem {
   del: (id: string) => void
-  edit: (id: string) => void
+  edit: (name: string, surname: string, email:string, id: string) => void
 }
 
 
@@ -17,7 +17,7 @@ const Item: React.FC<Props> = ({name, surname, email, id, edit, del}) => {
         <Text style={styles.itemText}>Email: {email}</Text>
         <Text style={styles.itemText}>Id: {id}</Text>
       </View>
-      <Pressable style={styles.edit} onPress={() => edit(id)}>
+      <Pressable style={styles.edit} onPress={() => edit(name, surname, email, id)}>
         <Text style={styles.buttonText}>Edit</Text>
       </Pressable>
       <Pressable style={styles.del} onPress={() => del(id)}>
