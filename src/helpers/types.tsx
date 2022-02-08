@@ -5,13 +5,12 @@ export type RootStackParameters = {
     ShowList: undefined;
     AddClient: undefined;
     Edit: {
-        selectedClient: {
-            name: string;
-            surname: string;
-            email: string;
-            id: string;
-        }
-    };
+    userName: string,
+    userSurname: string,
+    userEmail: string,
+    userId: string,
+    }
+
 };
 
 export type IRegister = {
@@ -30,6 +29,7 @@ export type IItem = {
     email: string;
     id: string;
 }
+
 
 
 

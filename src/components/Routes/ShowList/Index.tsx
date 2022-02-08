@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {isValidElement, useEffect, useState} from 'react';
 import {View, FlatList, Text, Pressable} from 'react-native';
 import { IItem } from '../../../helpers/types'
 import Item from '../../Shared/Item';
@@ -39,11 +39,14 @@ const DataScreen = ({navigation}: Props) => {
     }
   }
 
-  const editItem = async (selectedClient: any) => {
+  const editItem = async (name: string, surname: string, email: string, id: string) => {
     try {
       navigation.navigate('Edit', {
-        selectedClient
-      })
+        userName: name,
+        userSurname: surname,
+        userEmail: email,
+        userId: id,
+      });
     } catch(e) {
       console.log(e)
     }

@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<RootStackParameters, 'Edit'>
 
 const EditScreen = ({route, navigation}: Props) => {
 
-  const { selectedClient } = route.params;
+  const { userName, userSurname, userEmail, userId } = route.params;
 
   const [clientList, setClientList] = useState<IItem[]>([]);
 
@@ -38,7 +38,10 @@ const EditScreen = ({route, navigation}: Props) => {
         <EditItem 
           setClientList={setClientList}
           clientList={clientList}
-          client={selectedClient}
+          oldName={userName}
+          oldSurname={userSurname}
+          oldEmail={userEmail}
+          oldId={userId}
         />
       </View>
       <View>

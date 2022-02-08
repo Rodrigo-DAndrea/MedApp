@@ -12,26 +12,20 @@ import {
 } from 'react-native';
 import { useForm, Controller } from "react-hook-form";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from './Styles';
 import { IItem } from '../../../helpers/types'
 
 interface Props {
   setClientList: React.Dispatch<React.SetStateAction<IItem[]>>;
   clientList: IItem[];
-  oldName: string;
-  oldSurname: string;
-  oldEmail: string;
-  oldId: string;
 }
 
-const EditClient: React.FC<Props> = ({ clientList, setClientList, oldName, oldSurname, oldEmail, oldId }) => {
+const AddNewClient: React.FC<Props> = ({ clientList, setClientList }) => {
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
 
-  const [name, setName] = useState(oldName);
-  const [surname, setSurname] = useState(oldSurname);
-  const [email, setEmail] = useState(oldEmail);
-  const [id, setId] = useState(oldId);
-
-  const editClient = () => {
+  const addClient = () => {
     if (!name || !surname || !email) {
       Alert.alert('You need to complete all fields');
     } else {
@@ -46,6 +40,10 @@ const EditClient: React.FC<Props> = ({ clientList, setClientList, oldName, oldSu
       ]
       setClientList(newList);
       AsyncStorage.setItem("clientList", JSON.stringify(newList));
+      setName('');
+      setSurname('');
+      setEmail('');
+      setId('');
     }
   };
 
@@ -53,12 +51,11 @@ const EditClient: React.FC<Props> = ({ clientList, setClientList, oldName, oldSu
     <KeyboardAvoidingView behavior="padding">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
-        
-          <Text style={styles.heading}>Edit Client</Text>
+          <Text style={styles.heading}>Add Client</Text>
           <View style={styles.form}>
             <TextInput
               style={styles.input}
-              placeholder='Name'
+              placeholder="Name"
               value={name}
               onChangeText={text => setName(text)}
             /> 
@@ -82,8 +79,8 @@ const EditClient: React.FC<Props> = ({ clientList, setClientList, oldName, oldSu
               value={id}
               onChangeText={q => setId(q)}
             />
-            <TouchableOpacity style={styles.button} onPress={editClient}>
-              <Text style={styles.buttonText}>Save Client</Text>
+            <TouchableOpacity style={styles.button} onPress={addClient}>
+              <Text style={styles.buttonText}>Add Client</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -92,5 +89,36 @@ const EditClient: React.FC<Props> = ({ clientList, setClientList, oldName, oldSu
   );
 };
 
+const styles = StyleSheet.create({
+  heading: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  form: {
+    marginTop: 30,
+  },
+  input: {
+    padding: 15,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  email: {
+    padding: 15,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: 'indigo',
+    padding: 15,
+    margin: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonText: {color: '#fff', fontWeight: '500'},
+});
 
-export default EditClient;
+export default AddNewClient;
