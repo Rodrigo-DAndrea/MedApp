@@ -35,6 +35,10 @@ const EditClient: React.FC<Props> = ({ clientList, setClientList, oldName, oldSu
     if (!name || !surname || !email) {
       Alert.alert('You need to complete all fields');
     } else {
+
+      const oldClient = clientList.findIndex(client => client.id === oldId );
+      clientList.splice(oldClient);
+
       const newList = [
         ...clientList,
         {
